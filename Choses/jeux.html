@@ -32,6 +32,24 @@
         .confetti{position:absolute;width:10px;height:10px;background:#ff6b9d;border-radius:50%;pointer-events:none;animation:fall 3s linear forwards}
         @keyframes fall{to{transform:translateY(100vh) rotate(720deg);opacity:0}}
         @media(max-width:480px){.container{padding:35px 25px}h1{font-size:2.5rem}.question{padding:14px}.option{font-size:.95rem;padding:10px 14px}}
+
+        .back-btn {
+            margin-top: 30px;
+            padding: 12px 24px;
+            background: rgba(255, 105, 180, 0.2);
+            color: #d63384;
+            border: 1.5px solid #ff6b9d;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #ff6b9d;
+            color: white;
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body>
@@ -113,6 +131,10 @@
 
         <div id="result"></div>
     </div>
+
+    <button class="back-btn" onclick="history.back()">
+            <i class="fas fa-arrow-left"></i> Retour
+        </button>
 
     <!-- ====================== JAVASCRIPT ====================== -->
     <script>
