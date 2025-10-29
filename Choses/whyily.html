@@ -26,6 +26,24 @@
             overflow-x: hidden;
         }
 
+        .back-btn {
+            margin-top: 30px;
+            padding: 12px 24px;
+            background: rgba(255, 105, 180, 0.2);
+            color: #d63384;
+            border: 1.5px solid #ff6b9d;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #ff6b9d;
+            color: white;
+            transform: scale(1.05);
+        }
+
        
         .heart-bg {
             position: absolute;
@@ -212,6 +230,10 @@
 
         <div id="result"></div>
     </div>
+
+    <button class="back-btn" onclick="history.back()">
+            <i class="fas fa-arrow-left"></i> Retour
+        </button>
 
     <script>
         const reasons = [
