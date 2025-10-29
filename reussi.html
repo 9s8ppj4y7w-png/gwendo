@@ -7,30 +7,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             min-height: 100vh;
-            background: linear-gradient(135deg, #ffeef8 0%, #ffd1e9 35%, #ff99cc 100%);
+            background: linear-gradient(135deg, #fff0f5 0%, #ffe4f0 40%, #ffccdd 100%);
             font-family: 'Poppins', sans-serif;
             color: #c2185b;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             padding: 20px;
-            overflow-x: hidden;
             position: relative;
+            overflow: hidden;
         }
 
-        
         .heart {
             position: absolute;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             color: rgba(255, 105, 180, 0.15);
             pointer-events: none;
             animation: float 6s infinite ease-in-out;
@@ -39,19 +34,19 @@
 
         @keyframes float {
             0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
-            50% { transform: translateY(-20px) rotate(10deg); opacity: 0.6; }
+            50% { transform: translateY(-20px) rotate(15deg); opacity: 0.6; }
         }
 
         .container {
-            background: rgba(255, 250, 253, 0.92);
-            backdrop-filter: blur(14px);
+            background: rgba(255, 250, 253, 0.94);
+            backdrop-filter: blur(15px);
             padding: 50px 35px;
-            border-radius: 28px;
+            border-radius: 30px;
             width: 100%;
-            max-width: 480px;
+            max-width: 560px;
             text-align: center;
-            box-shadow: 0 20px 40px rgba(255, 105, 180, 0.22),
-                        0 8px 20px rgba(255, 182, 193, 0.18);
+            box-shadow: 0 22px 45px rgba(255, 105, 180, 0.22),
+                        0 10px 22px rgba(255, 182, 193, 0.18);
             border: 1.8px solid rgba(255, 105, 180, 0.3);
             transition: all 0.4s ease;
             position: relative;
@@ -59,9 +54,9 @@
         }
 
         .container:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 25px 50px rgba(255, 105, 180, 0.28),
-                        0 12px 25px rgba(255, 182, 193, 0.22);
+            transform: translateY(-8px);
+            box-shadow: 0 28px 55px rgba(255, 105, 180, 0.28),
+                        0 14px 28px rgba(255, 182, 193, 0.22);
         }
 
         h1 {
@@ -73,17 +68,17 @@
         }
 
         .subtitle {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             color: #e91e63;
             margin-bottom: 32px;
             font-weight: 300;
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
         .menu {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 18px;
         }
 
         .menu-item {
@@ -91,13 +86,15 @@
             align-items: center;
             justify-content: center;
             gap: 14px;
-            padding: 18px 24px;
+            padding: 18px 28px;
             background: linear-gradient(135deg, #ffb3d1, #ff8fab);
             color: white;
             text-decoration: none;
             font-size: 1.1rem;
             font-weight: 500;
             border-radius: 50px;
+            border: none;
+            cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 6px 16px rgba(255, 107, 157, 0.3);
             position: relative;
@@ -129,17 +126,30 @@
         }
 
         .menu-item:hover i {
-            transform: scale(1.2) rotate(15deg);
+            transform: scale(1.3) rotate(20deg);
         }
 
-        .menu-item:active {
-            transform: translateY(0) scale(0.98);
-        }
-
-        /* Sparkle on hover */
         .menu-item span {
             position: relative;
             z-index: 2;
+        }
+
+        .back-btn {
+            margin-top: 30px;
+            padding: 12px 24px;
+            background: rgba(255, 105, 180, 0.2);
+            color: #d63384;
+            border: 1.5px solid #ff6b9d;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #ff6b9d;
+            color: white;
+            transform: scale(1.05);
         }
 
         footer {
@@ -149,48 +159,65 @@
             font-weight: 300;
         }
 
+        .confetti {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #ff6b9d;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: fall 2.5s linear forwards;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(120vh) rotate(720deg); opacity: 0; }
+        }
+
         @media (max-width: 480px) {
-            .container {
-                padding: 40px 25px;
-            }
-            h1 {
-                font-size: 2.7rem;
-            }
-            .menu-item {
-                font-size: 1rem;
-                padding: 16px 20px;
-            }
+            .container { padding: 35px 25px; }
+            h1 { font-size: 2.7rem; }
+            .menu-item { font-size: 1rem; padding: 16px 20px; }
         }
     </style>
 </head>
 <body>
 
-    
-    <div class="heart" style="left: 10%; top: 20%; animation-delay: 0s;">&hearts;</div>
-    <div class="heart" style="left: 20%; top: 60%; animation-delay: 1s;">&hearts;</div>
-    <div class="heart" style="left: 70%; top: 30%; animation-delay: 2s;">&hearts;</div>
-    <div class="heart" style="left: 80%; top: 70%; animation-delay: 3s;">&hearts;</div>
-    <div class="heart" style="left: 50%; top: 10%; animation-delay: 4s;">&hearts;</div>
+    <!-- Floating hearts -->
+    <div class="heart" style="left: 12%; top: 18%; animation-delay: 0s;">Heart</div>
+    <div class="heart" style="left: 28%; top: 68%; animation-delay: 1.3s;">Heart</div>
+    <div class="heart" style="left: 72%; top: 28%; animation-delay: 2.6s;">Heart</div>
+    <div class="heart" style="left: 82%; top: 72%; animation-delay: 3.9s;">Heart</div>
 
     <div class="container">
         <h1>Gwendoline &lt;3</h1>
-        <p class="subtitle">Bienvenue sur le site que j'ai fait pour toi, ma Princesse ❤️</p>
+        <p class="subtitle">
+            Bienvenue sur le site que j'ai fait pour toi, ma Princesse<br>
+            Chaque page est un morceau de mon cœur
+        </p>
 
-        <nav class="menu">
-            
-            <a href="/Choses/whyily.html" class="menu-item">
+        <div class="menu">
+            <a href="./Choses/whyily.html" class="menu-item">
                 <i class="fas fa-heart"></i>
                 <span>Pourquoi je t'aime</span>
             </a>
-            <a href="/Choses/Projets.html" class="menu-item">
+            <a href="./Choses/Projets.html" class="menu-item">
                 <i class="fas fa-star"></i>
-                <span>Projets pour l'avenir ensemble</span>
+                <span>Projets pour l'avenir</span>
             </a>
-            <a href="/Choses/jeux.html" class="menu-item">
+            <a href="./Choses/jeux.html" class="menu-item">
                 <i class="fas fa-gamepad"></i>
-                <span>Jeu : À quel point tu me connais ?</span>
+                <span>Jeu : Tu me connais ?</span>
             </a>
-        </nav>
+            <a href="./Choses/promesses.html" class="menu-item">
+                <i class="fas fa-ring"></i>
+                <span>Mes Promesses</span>
+            </a>
+            
+        </div>
+
+        <button class="back-btn" onclick="history.back()">
+            <i class="fas fa-arrow-left"></i> Retour
+        </button>
 
         <footer>
             Fait avec tout mon amour &bull; 2025
@@ -198,56 +225,45 @@
     </div>
 
     <script>
-       
-        document.addEventListener("DOMContentLoaded", () => {
-            const colors = ['#ff6b9d', '#ff8fab', '#ffb3d1', '#ffc1e3'];
-            for (let i = 0; i < 8; i++) {
-                setTimeout(() => {
-                    const heart = document.createElement('div');
-                    heart.className = 'heart';
-                    heart.innerHTML = '&hearts;';
-                    heart.style.left = Math.random() * 100 + '%';
-                    heart.style.top = Math.random() * 100 + '%';
-                    heart.style.color = colors[Math.floor(Math.random() * colors.length)];
-                    heart.style.fontSize = (1 + Math.random()) + 'rem';
-                    heart.style.animationDelay = Math.random() * 5 + 's';
-                    heart.style.animationDuration = (5 + Math.random() * 3) + 's';
-                    document.body.appendChild(heart);
-                }, i * 800);
-            }
-        });
-
-       
+        // Confettis au clic
         document.querySelectorAll('.menu-item').forEach(item => {
             item.addEventListener('click', function(e) {
                 const rect = this.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
 
-                const sparkle = document.createElement('span');
-                sparkle.innerHTML = '✨';
-                sparkle.style.position = 'absolute';
-                sparkle.style.left = x + 'px';
-                sparkle.style.top = y + 'px';
-                sparkle.style.pointerEvents = 'none';
-                sparkle.style.fontSize = '1.5rem';
-                sparkle.style.animation = 'sparkle 0.8s ease-out forwards';
-                this.style.position = 'relative';
-                this.appendChild(sparkle);
-
-                setTimeout(() => sparkle.remove(), 800);
+                for (let i = 0; i < 15; i++) {
+                    setTimeout(() => {
+                        const heart = document.createElement('div');
+                        heart.className = 'confetti';
+                        heart.innerHTML = 'Heart';
+                        heart.style.left = (rect.left + x + (Math.random() - 0.5) * 100) + 'px';
+                        heart.style.top = (rect.top + y) + 'px';
+                        heart.style.background = ['#ff6b9d', '#ff8fab', '#ffb3d1'][Math.floor(Math.random() * 3)];
+                        document.body.appendChild(heart);
+                        setTimeout(() => heart.remove(), 2500);
+                    }, i * 80);
+                }
             });
         });
 
-        
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes sparkle {
-                0% { transform: scale(0) rotate(0deg); opacity: 1; }
-                100% { transform: scale(1.5) rotate(180deg); opacity: 0; }
+        // Cœurs flottants dynamiques
+        document.addEventListener("DOMContentLoaded", () => {
+            const colors = ['#ff6b9d', '#ff8fab', '#ffb3d1', '#ffc1e3'];
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart';
+                    heart.innerHTML = 'Heart';
+                    heart.style.left = Math.random() * 100 + '%';
+                    heart.style.top = Math.random() * 100 + '%';
+                    heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+                    heart.style.fontSize = (1.3 + Math.random() * 0.9) + 'rem';
+                    heart.style.animationDelay = Math.random() * 5 + 's';
+                    document.body.appendChild(heart);
+                }, i * 750);
             }
-        `;
-        document.head.appendChild(style);
+        });
     </script>
 
 </body>
