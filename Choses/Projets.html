@@ -148,6 +148,24 @@
             transform: translateY(-50%) scale(1.4) rotate(15deg);
         }
 
+        .back-btn {
+            margin-top: 30px;
+            padding: 12px 24px;
+            background: rgba(255, 105, 180, 0.2);
+            color: #d63384;
+            border: 1.5px solid #ff6b9d;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #ff6b9d;
+            color: white;
+            transform: scale(1.05);
+        }
+
         .confetti {
             position: absolute;
             width: 12px;
@@ -179,6 +197,8 @@
 </head>
 <body>
 
+    
+
    
     <div class="heart" style="left: 12%; top: 18%; animation-delay: 0s;">Heart</div>
     <div class="heart" style="left: 28%; top: 68%; animation-delay: 1.3s;">Heart</div>
@@ -205,6 +225,12 @@
             
         </footer>
     </div>
+    
+    <button class="back-btn" onclick="history.back()">
+            <i class="fas fa-arrow-left"></i> Retour
+        </button>
+
+    
 
     <script>
         
