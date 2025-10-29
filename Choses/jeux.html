@@ -7,9 +7,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        
         *{margin:0;padding:0;box-sizing:border-box}
-        body{min-height:100vh;background:linear-gradient(135deg,#fff0f5 0%,#ffe4f0 40%,#ffccdd 100%);font-family:'Poppins',sans-serif;color:#c2185b;display:flex;flex-direction:column;align-items:center;padding:20px;position:relative;overflow-x:hidden}
+        body{min-height:100vh;background:linear-gradient(135deg,#fff0f5 0%,#ffe4f0  éclat%,#ffccdd 100%);font-family:'Poppins',sans-serif;color:#c2185b;display:flex;flex-direction:column;align-items:center;padding:20px;position:relative;overflow-x:hidden}
         .heart-bg{position:absolute;font-size:1.8rem;color:rgba(255,105,180,.12);pointer-events:none;animation:float 7s infinite ease-in-out}
         @keyframes float{0%,100%{transform:translateY(0) rotate(0deg);opacity:.3}50%{transform:translateY(-25px) rotate(12deg);opacity:.6}}
         .container{background:rgba(255,250,253,.94);backdrop-filter:blur(15px);padding:45px 35px;border-radius:30px;width:100%;max-width:520px;text-align:center;box-shadow:0 22px 45px rgba(255,105,180,.22),0 10px 22px rgba(255,182,193,.18);border:1.8px solid rgba(255,105,180,.3);margin-top:20px;transition:all .4s;z-index:10}
@@ -20,10 +19,51 @@
         .question:hover{background:rgba(255,230,240,.9);border-color:#ff6b9d}
         .question h3{color:#c2185b;margin-bottom:14px;font-size:1.25rem;font-weight:500}
         .options{display:flex;flex-direction:column;gap:12px}
-        .option{display:flex;align-items:center;gap:12px;padding:12px 16px;background:#fff;border-radius:50px;border:2px solid #ffccdd;cursor:pointer;transition:all .3s;font-size:1rem;color:#d63384;box-shadow:0 4px 10px rgba(255,107,157,.1)}
+        
+        /* === OPTION STYLISÉE === */
+        .option{
+            display:flex;align-items:center;gap:12px;padding:12px 16px;
+            background:#fff;border-radius:50px;border:2px solid #ffccdd;
+            cursor:pointer;transition:all .3s;font-size:1rem;color:#d63384;
+            box-shadow:0 4px 10px rgba(255,107,157,.1);position:relative;overflow:hidden;
+        }
         .option:hover{border-color:#ff6b9d;background:#fff5f9;transform:translateX(5px)}
-        .option input[type=radio]{transform:scale(1.2);accent-color:#ff6b9d;cursor:pointer}
-        .option label{cursor:pointer;user-select:none;width:100%}
+        
+        /* Masquer les inputs natifs */
+        .option input[type="radio"], .option input[type="checkbox"]{
+            position:absolute;opacity:0;width:0;height:0;
+        }
+        
+        /* Custom checkbox/radio */
+        .option .custom-box{
+            width:26px;height:26px;background:white;
+            border:2.5px solid #ff6b9d;display:flex;align-items:center;justify-content:center;
+            transition:all .3s;box-shadow:0 2px 6px rgba(255,107,157,.2);
+        }
+        .option input[type="radio"] + .custom-box{border-radius:50%}
+        .option input[type="checkbox"] + .custom-box{border-radius:10px}
+        
+        .option input[type="radio"]:checked + .custom-box,
+        .option input[type="checkbox"]:checked + .custom-box{
+            background:linear-gradient(135deg,#ff6b9d,#ff8fab);border-color:#ff5c8a;
+            transform:scale(1.1);box-shadow:0 4px 12px rgba(255,107,157,.4);
+        }
+        
+        .option .custom-box::after{
+            content:'';font-family:'Font Awesome 6 Free';font-weight:900;
+            color:white;font-size:0;transition:all .3s;
+        }
+        .option input[type="radio"]:checked + .custom-box::after{
+            content:'\f111';font-size:12px;
+        }
+        .option input[type="checkbox"]:checked + .custom-box::after{
+            content:'\f004';font-size:14px;animation:heartPop .4s ease;
+        }
+        @keyframes heartPop{0%{transform:scale(0) rotate(-20deg)}50%{transform:scale(1.3) rotate(10deg)}100%{transform:scale(1) rotate(0)}}
+        
+        .option label{cursor:pointer;user-select:none;width:100%;transition:color .3s}
+        .option:hover label{color:#d63384}
+
         .feedback{margin-top:10px;font-size:1.4rem;min-height:32px;font-weight:bold}
         #submit-btn{margin:30px auto 20px;padding:16px 36px;font-size:1.1rem;font-weight:500;color:#fff;background:linear-gradient(135deg,#ff6b9d,#ff8fab);border:none;border-radius:50px;cursor:pointer;box-shadow:0 8px 20px rgba(255,107,157,.35);transition:all .3s;display:block}
         #submit-btn:hover{background:linear-gradient(135deg,#ff5c8a,#ff7a9d);transform:translateY(-3px) scale(1.05);box-shadow:0 12px 25px rgba(255,107,157,.45)}
@@ -31,101 +71,167 @@
         @keyframes fadeIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
         .confetti{position:absolute;width:10px;height:10px;background:#ff6b9d;border-radius:50%;pointer-events:none;animation:fall 3s linear forwards}
         @keyframes fall{to{transform:translateY(100vh) rotate(720deg);opacity:0}}
+
+        .back-btn{margin-top:30px;padding:12px 24px;background:rgba(255,105,180,.2);color:#d63384;border:1.5px solid #ff6b9d;border-radius:50px;font-size:.95rem;cursor:pointer;transition:all .3s}
+        .back-btn:hover{background:#ff6b9d;color:white;transform:scale(1.05)}
+
         @media(max-width:480px){.container{padding:35px 25px}h1{font-size:2.5rem}.question{padding:14px}.option{font-size:.95rem;padding:10px 14px}}
-
-        .back-btn {
-            margin-top: 30px;
-            padding: 12px 24px;
-            background: rgba(255, 105, 180, 0.2);
-            color: #d63384;
-            border: 1.5px solid #ff6b9d;
-            border-radius: 50px;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .back-btn:hover {
-            background: #ff6b9d;
-            color: white;
-            transform: scale(1.05);
-        }
     </style>
 </head>
 <body>
 
-    <!-- Floating hearts -->
-    <div class="heart-bg" style="left:12%;top:15%;animation-delay:0s;">&hearts;</div>
-    <div class="heart-bg" style="left:25%;top:70%;animation-delay:1.5s;">&hearts;</div>
-    <div class="heart-bg" style="left:70%;top:25%;animation-delay:2.8s;">&hearts;</div>
-    <div class="heart-bg" style="left:85%;top:60%;animation-delay:3.5s;">&hearts;</div>
+    <!-- Cœurs flottants -->
+    <div class="heart-bg" style="left:12%;top:15%;animation-delay:0s;">Heart</div>
+    <div class="heart-bg" style="left:25%;top:70%;animation-delay:1.5s;">Heart</div>
+    <div class="heart-bg" style="left:70%;top:25%;animation-delay:2.8s;">Heart</div>
+    <div class="heart-bg" style="left:85%;top:60%;animation-delay:3.5s;">Heart</div>
 
     <div class="container">
         <h1>Tu me connais ?</h1>
-        <p class="subtitle">Un petit jeu pour voir si tu sais tout sur moi, ma Princesse <3</p>
+        <p class="subtitle">Un petit jeu pour voir si tu sais tout sur moi</p>
 
         <form id="quiz-form">
-            <!-- ==== QUESTION 1 ==== -->
+            <!-- Q1 : Radio -->
             <div class="question">
                 <h3>1. Quelle est ma couleur préférée ?</h3>
                 <div class="options">
-                    <div class="option"><input type="radio" name="q1" value="wrong" id="q1a"><label for="q1a">Bleu</label></div>
-                    <div class="option"><input type="radio" name="q1" value="correct" id="q1b"><label for="q1b">Violet</label></div>
-                    <div class="option"><input type="radio" name="q1" value="wrong" id="q1c"><label for="q1c">Vert</label></div>
+                    <div class="option" onclick="toggleInput(this)">
+                        <input type="radio" name="q1" value="wrong" id="q1a">
+                        <div class="custom-box"></div>
+                        <label for="q1a">Bleu</label>
+                    </div>
+                    <div class="option" onclick="toggleInput(this)">
+                        <input type="radio" name="q1" value="correct" id="q1b">
+                        <div class="custom-box"></div>
+                        <label for="q1b">Violet</label>
+                    </div>
+                    <div class="option" onclick="toggleInput(this)">
+                        <input type="radio" name="q1" value="wrong" id="q1c">
+                        <div class="custom-box"></div>
+                        <label for="q1c">Vert</label>
+                    </div>
                 </div>
                 <div class="feedback" id="fb1"></div>
             </div>
 
-            <!-- ==== QUESTION 2 ==== -->
+            <!-- Q2 : Checkbox (3 bonnes) -->
             <div class="question">
-                <h3>2. Quel est mon plat préféré ?</h3>
+                <h3>2. Quel est mon plat préféré ? (Plusieurs possibles)</h3>
                 <div class="options">
-                    <div class="option"><input type="radio" name="q2" value="correct" id="q2a"><label for="q2a">O'tacos</label></div>
-                    <div class="option"><input type="radio" name="q2" value="correct" id="q2b"><label for="q2b">Riz Cantonnais</label></div>
-                    <div class="option"><input type="radio" name="q2" value="correct" id="q2c"><label for="q2c">Burger King</label></div>
+                    <div class="option" onclick="toggleInput(this)">
+                        <input type="checkbox" name="q2" value="correct" id="q2a">
+                        <div class="custom-box"></div>
+                        <label for="q2a">O'tacos</label>
+                    </div>
+                    <div class="option" onclick="toggleInput(this)">
+                        <input type="checkbox" name="q2" value="correct" id="q2b">
+                        <div class="custom-box"></div>
+                        <label for="q2b">Riz Cantonnais</label>
+                    </div>
+                    <div class="option" onclick="toggleInput(this)">
+                        <input type="checkbox" name="q2" value="correct" id="q2c">
+                        <div class="custom-box"></div>
+                        <label for="q2c">Burger King</label>
+                    </div>
                 </div>
                 <div class="feedback" id="fb2"></div>
             </div>
 
-            <!-- ==== QUESTION 3 ==== -->
+            <!-- Q3 : Checkbox (4 bonnes) -->
             <div class="question">
-                <h3>3. C</h3>
+                <h3>3. C'est quoi mes plus grands rêves ? (Plusieurs possibles)</h3>
                 <div class="options">
-                    <div class="option"><input type="radio" name="q3" value="wrong" id="q3a"><label for="q3a">Voyager dans l’espace</label></div>
-                    <div class="option"><input type="radio" name="q3" value="correct" id="q3b"><label for="q3b">Construire une maison avec toi</label></div>
-                    <div class="option"><input type="radio" name="q3" value="wrong" id="q3c"><label for="q3c">Devenir millionnaire</label></div>
+                    <div class="option" onclick="toggleInput(this)">
+                        <input type="checkbox" name="q3" value="wrong" id="q3a">
+                        <div class="custom-box"></div>
+                        <label for="q3a">Faire le tour du monde</label>
+                    </div>
+                    <div class="option" onclick="toggleInput(this)">
+                        <input type="checkbox" name="q3" value="correct" id="q3b">
+                        <div class="custom-box"></div>
+                        <label for="q3b">Vivre avec toi</label>
+                    </div>
+                    <div class="option" onclick="toggleInput(this)">
+                        <input type="checkbox" name="q3" value="correct" id="q3c">
+                        <div class="custom-box"></div>
+                        <label for="q3c">Avoir une famille avec toi</label>
+                    </div>
+                    <div class="option" onclick="toggleInput(this)">
+                        <input type="checkbox" name="q3" value="correct" id="q3d">
+                        <div class="custom-box"></div>
+                        <label for="q3d">Devenir millionnaire</label>
+                    </div>
+                    <div class="option" onclick="toggleInput(this)">
+                        <input type="checkbox" name="q3" value="correct" id="q3e">
+                        <div class="custom-box"></div>
+                        <label for="q3e">Devenir ingénieur</label>
+                    </div>
+
                 </div>
                 <div class="feedback" id="fb3"></div>
             </div>
 
-            <!-- ==== QUESTION 4 ==== -->
+            <!-- Q4 : Radio -->
             <div class="question">
                 <h3>4. Quel est mon animal préféré ?</h3>
                 <div class="options">
-                    <div class="option"><input type="radio" name="q4" value="wrong" id="q4a"><label for="q4a">Chien</label></div>
-                    <div class="option"><input type="radio" name="q4" value="correct" id="q4b"><label for="q4b">Chat</label></div>
-        
+                    <div class="option" onclick="toggleInput(this)">
+                        <input type="radio" name="q4" value="wrong" id="q4a">
+                        <div class="custom-box"></div>
+                        <label for="q4a">Chien</label>
+                    </div>
+                    <div class="option" onclick="toggleInput(this)">
+                        <input type="radio" name="q4" value="correct" id="q4b">
+                        <div class="custom-box"></div>
+                        <label for="q4b">Chat</label>
+                    </div>
                 </div>
                 <div class="feedback" id="fb4"></div>
             </div>
 
-            <!-- ==== QUESTION 5 ==== -->
+            <!-- Q5 : Checkbox (7 bonnes) -->
             <div class="question">
-                <h3>5. Qu'est-ce-que j'aime le plus chez toi?</h3>
+                <h3>5. Qu'est-ce que j'aime le plus chez toi ? (Coche tout <3)</h3>
                 <div class="options">
-                    <div class="option"><input type="radio" name="q5" value="correct" id="q5a"><label for="q5a">Ton sourire</label></div>
-                    <div class="option"><input type="radio" name="q5" value="correct" id="q5b"><label for="q5b">Tout de toi</label></div>
-                    <div class="option"><input type="radio" name="q5" value="correct" id="q5c"><label for="q5c">Tes yeux</label></div>
-                    <div class="option"><input type="radio" name="q5" value="correct" id="q5d"><label for="q5d">Ta voix</label></div>
-                    <div class="option"><input type="radio" name="q5" value="correct" id="q5c"><label for="q5e">Ta gentillesse</label></div>
-                    <div class="option"><input type="radio" name="q5" value="correct" id="q5c"><label for="q5f">Tes calins</label></div>
-                    <div class="option"><input type="radio" name="q5" value="correct" id="q5c"><label for="q5g">Ton charactere</label></div>
-                    
+                    <div class="option" onclick="toggleInput(this)">
+                        <input type="checkbox" name="q5" value="correct" id="q5a">
+                        <div class="custom-box"></div>
+                        <label for="q5a">Ton sourire</label>
+                    </div>
+                    <div class="option" onclick="toggleInput(this)">
+                        <input type="checkbox" name="q5" value="correct" id="q5b">
+                        <div class="custom-box"></div>
+                        <label for="q5b">Tout de toi</label>
+                    </div>
+                    <div class="option" onclick="toggleInput(this)">
+                        <input type="checkbox" name="q5" value="correct" id="q5c">
+                        <div class="custom-box"></div>
+                        <label for="q5c">Tes yeux</label>
+                    </div>
+                    <div class="option" onclick="toggleInput(this)">
+                        <input type="checkbox" name="q5" value="correct" id="q5d">
+                        <div class="custom-box"></div>
+                        <label for="q5d">Ta voix</label>
+                    </div>
+                    <div class="option" onclick="toggleInput(this)">
+                        <input type="checkbox" name="q5" value="correct" id="q5e">
+                        <div class="custom-box"></div>
+                        <label for="q5e">Ta gentillesse</label>
+                    </div>
+                    <div class="option" onclick="toggleInput(this)">
+                        <input type="checkbox" name="q5" value="correct" id="q5f">
+                        <div class="custom-box"></div>
+                        <label for="q5f">Tes câlins</label>
+                    </div>
+                    <div class="option" onclick="toggleInput(this)">
+                        <input type="checkbox" name="q5" value="correct" id="q5g">
+                        <div class="custom-box"></div>
+                        <label for="q5g">Ton caractère</label>
+                    </div>
                 </div>
                 <div class="feedback" id="fb5"></div>
             </div>
 
-            <!-- BUTTON -->
             <button type="button" id="submit-btn" onclick="checkAnswers()">Voir mon score !</button>
         </form>
 
@@ -133,20 +239,25 @@
     </div>
 
     <button class="back-btn" onclick="history.back()">
-            <i class="fas fa-arrow-left"></i> Retour
-        </button>
+        <i class="fas fa-arrow-left"></i> Retour
+    </button>
 
-    <!-- ====================== JAVASCRIPT ====================== -->
     <script>
-       
-        const correct = { q1:'correct', q2:'correct', q3:'correct', q4:'correct', q5:'correct' };
+        // Réponses correctes
+        const correctAnswers = {
+            q1: "correct",                                    // Radio
+            q2: ["correct", "correct", "correct"],            // 3 bonnes
+            q3: ["correct", "correct", "correct", "correct"], // 4 bonnes
+            q4: "correct",                                    // Radio
+            q5: ["correct","correct","correct","correct","correct","correct","correct"] // 7 bonnes
+        };
 
         const messages = [
-            "Tu me connais par cœur ! Je t’aime infiniment",
-            "Presque parfait ! Tu es mon âme sœur",
+            "Oups ! On va faire plus de soirées câlins pour réviser",
             "Pas mal du tout ! On va s’aimer pour toujours",
-            "Encore un peu d’entraînement… mais je t’aime quand même",
-            "Oups ! On va faire plus de soirées câlins pour réviser"
+            "Tu commences à bien me connaître !",
+            "Wow ! Tu es dans mon cœur",
+            "PARFAIT ! Tu me connais par cœur"
         ];
 
         function checkAnswers() {
@@ -154,30 +265,62 @@
             const total = 5;
 
             for (let i = 1; i <= total; i++) {
-                const sel = document.querySelector(`input[name="q${i}"]:checked`);
-                const fb  = document.getElementById(`fb${i}`);
+                const fb = document.getElementById(`fb${i}`);
+                const inputs = document.querySelectorAll(`input[name="q${i}"]`);
+                const checked = Array.from(inputs).filter(inp => inp.checked);
+                const values = checked.map(inp => inp.value);
 
-                if (!sel) {                   
-                    fb.textContent = "Tu as oublié cette question";
+                fb.textContent = "";
+                fb.style.color = "";
+
+                if (checked.length === 0) {
+                    fb.textContent = "Choisis au moins une réponse !";
                     fb.style.color = "#f57c00";
                     continue;
                 }
 
-                if (sel.value === correct[`q${i}`]) {
-                    fb.textContent = "Correct !";
-                    fb.style.color = "#2e7d32";
-                    score++;
-                    confettiBurst();
-                } else {
-                    fb.textContent = "Faux… mais je t’aime quand même";
-                    fb.style.color = "#d32f2f";
+                const expected = correctAnswers[`q${i}`];
+
+                if (typeof expected === "string") {
+                    const isCorrect = values.length === 1 && values[0] === expected;
+                    if (isCorrect) {
+                        fb.innerHTML = "Correct !";
+                        fb.style.color = "#2e7d32";
+                        score++;
+                        confettiBurst();
+                    } else {
+                        fb.innerHTML = "Faux… mais je t’aime quand même";
+                        fb.style.color = "#d32f2f";
+                    }
+                } 
+                else if (Array.isArray(expected)) {
+                    const allCorrect = expected.every(val => values.includes(val));
+                    const noWrong = values.every(val => expected.includes(val));
+
+                    if (allCorrect && noWrong) {
+                        fb.innerHTML = "Parfait !";
+                        fb.style.color = "#2e7d32";
+                        score++;
+                        confettiBurst();
+                    } 
+                    else if (allCorrect) {
+                        fb.innerHTML = "Presque ! Il en manque";
+                        fb.style.color = "#ff9800";
+                    }
+                    else if (noWrong) {
+                        fb.innerHTML = "Tu as quelques bonnes, mais pas toutes";
+                        fb.style.color = "#ff9800";
+                    }
+                    else {
+                        fb.innerHTML = "Non… tout est avec toi";
+                        fb.style.color = "#d32f2f";
+                    }
                 }
             }
 
-            
             const result = document.getElementById('result');
-            const pct    = Math.round((score/total)*100);
-            const msg    = messages[Math.min(score,4)];
+            const pct = Math.round((score / total) * 100);
+            const msg = messages[Math.min(score, 4)];
 
             result.innerHTML = `
                 <h3>Résultat : ${score}/${total} (${pct}%)</h3>
@@ -185,10 +328,9 @@
                 <p>Peu importe le score… tu es ma princesse pour toujours</p>
             `;
             result.style.display = 'block';
-            result.scrollIntoView({behavior:'smooth'});
+            result.scrollIntoView({ behavior: 'smooth' });
         }
 
-      
         function confettiBurst() {
             for (let i = 0; i < 30; i++) {
                 setTimeout(() => {
@@ -202,6 +344,18 @@
                     setTimeout(() => c.remove(), 3000);
                 }, i*50);
             }
+        }
+
+        function toggleInput(option) {
+            const input = option.querySelector('input');
+            if (input.type === "radio") {
+                document.querySelectorAll(`input[name="${input.name}"]`).forEach(r => {
+                    r.checked = false;
+                    r.parentElement.classList.remove('checked');
+                });
+            }
+            input.checked = !input.checked;
+            option.classList.toggle('checked', input.checked);
         }
     </script>
 </body>
