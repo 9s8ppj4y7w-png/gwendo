@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu : Tu me connais ?</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{min-height:100vh;background:linear-gradient(135deg,#fff0f5 0%,#ffe4f0 40%,#ffccdd 100%);font-family:'Poppins',sans-serif;color:#c2185b;display:flex;flex-direction:column;align-items:center;padding:20px;position:relative;overflow-x:hidden}
+        .heart-bg{position:absolute;font-size:1.8rem;color:rgba(255,105,180,.12);pointer-events:none;animation:float 7s infinite ease-in-out}
+        @keyframes float{0%,100%{transform:translateY(0) rotate(0deg);opacity:.3}50%{transform:translateY(-25px) rotate(12deg);opacity:.6}}
+        .container{background:rgba(255,250,253,.94);backdrop-filter:blur(15px);padding:45px 35px;border-radius:30px;width:100%;max-width:520px;text-align:center;box-shadow:0 22px 45px rgba(255,105,180,.22),0 10px 22px rgba(255,182,193,.18);border:1.8px solid rgba(255,105,180,.3);margin-top:20px;transition:all .4s;z-index:10}
+        .container:hover{transform:translateY(-8px);box-shadow:0 28px 55px rgba(255,105,180,.28),0 14px 28px rgba(255,182,193,.22)}
+        h1{font-family:'Dancing Script',cursive;font-size:3rem;color:#d63384;margin-bottom:12px;text-shadow:1px 1px 4px rgba(255,182,193,.3)}
+        .subtitle{font-size:1.2rem;color:#e91e63;margin-bottom:30px;font-weight:300;line-height:1.6}
+        .question{margin-bottom:28px;text-align:left;background:rgba(255,240,245,.7);padding:18px;border-radius:18px;border:1.5px dashed #ff99cc;transition:all .3s}
+        .question:hover{background:rgba(255,230,240,.9);border-color:#ff6b9d}
+        .question h3{color:#c2185b;margin-bottom:14px;font-size:1.25rem;font-weight:500}
+        .options{display:flex;flex-direction:column;gap:12px}
+        .option{display:flex;align-items:center;gap:12px;padding:12px 16px;background:#fff;border-radius:50px;border:2px solid #ffccdd;cursor:pointer;transition:all .3s;font-size:1rem;color:#d63384;box-shadow:0 4px 10px rgba(255,107,157,.1)}
+        .option:hover{border-color:#ff6b9d;background:#fff5f9;transform:translateX(5px)}
+        .option input[type=radio]{transform:scale(1.2);accent-color:#ff6b9d;cursor:pointer}
+        .option label{cursor:pointer;user-select:none;width:100%}
+        .feedback{margin-top:10px;font-size:1.4rem;min-height:32px;font-weight:bold}
+        #submit-btn{margin:30px auto 20px;padding:16px 36px;font-size:1.1rem;font-weight:500;color:#fff;background:linear-gradient(135deg,#ff6b9d,#ff8fab);border:none;border-radius:50px;cursor:pointer;box-shadow:0 8px 20px rgba(255,107,157,.35);transition:all .3s;display:block}
+        #submit-btn:hover{background:linear-gradient(135deg,#ff5c8a,#ff7a9d);transform:translateY(-3px) scale(1.05);box-shadow:0 12px 25px rgba(255,107,157,.45)}
+        #result{margin-top:25px;padding:20px;background:linear-gradient(135deg,#fff0f5,#ffe4f0);border-radius:20px;border:2px solid #ff99cc;font-size:1.3rem;color:#c2185b;display:none;animation:fadeIn .6s}
+        @keyframes fadeIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+        .confetti{position:absolute;width:10px;height:10px;background:#ff6b9d;border-radius:50%;pointer-events:none;animation:fall 3s linear forwards}
+        @keyframes fall{to{transform:translateY(100vh) rotate(720deg);opacity:0}}
+        @media(max-width:480px){.container{padding:35px 25px}h1{font-size:2.5rem}.question{padding:14px}.option{font-size:.95rem;padding:10px 14px}}
+    </style>
+</head>
+<body>
+
+    <!-- Floating hearts -->
+    <div class="heart-bg" style="left:12%;top:15%;animation-delay:0s;">&hearts;</div>
+    <div class="heart-bg" style="left:25%;top:70%;animation-delay:1.5s;">&hearts;</div>
+    <div class="heart-bg" style="left:70%;top:25%;animation-delay:2.8s;">&hearts;</div>
+    <div class="heart-bg" style="left:85%;top:60%;animation-delay:3.5s;">&hearts;</div>
+
+    <div class="container">
+        <h1>Tu me connais ?</h1>
+        <p class="subtitle">Un petit jeu pour voir si tu sais tout sur moi, ma Princesse <3</p>
+
+        <form id="quiz-form">
+            <!-- ==== QUESTION 1 ==== -->
+            <div class="question">
+                <h3>1. Quelle est ma couleur préférée ?</h3>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q1" value="wrong" id="q1a"><label for="q1a">Bleu</label></div>
+                    <div class="option"><input type="radio" name="q1" value="correct" id="q1b"><label for="q1b">Violet</label></div>
+                    <div class="option"><input type="radio" name="q1" value="wrong" id="q1c"><label for="q1c">Vert</label></div>
+                </div>
+                <div class="feedback" id="fb1"></div>
+            </div>
+
+            <!-- ==== QUESTION 2 ==== -->
+            <div class="question">
+                <h3>2. Quel est mon plat préféré ?</h3>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q2" value="correct" id="q2a"><label for="q2a">O'tacos</label></div>
+                    <div class="option"><input type="radio" name="q2" value="correct" id="q2b"><label for="q2b">Riz Cantonnais</label></div>
+                    <div class="option"><input type="radio" name="q2" value="correct" id="q2c"><label for="q2c">Burger King</label></div>
+                </div>
+                <div class="feedback" id="fb2"></div>
+            </div>
+
+            <!-- ==== QUESTION 3 ==== -->
+            <div class="question">
+                <h3>3. Quel est mon rêve le plus fou ?</h3>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q3" value="wrong" id="q3a"><label for="q3a">Voyager dans l’espace</label></div>
+                    <div class="option"><input type="radio" name="q3" value="correct" id="q3b"><label for="q3b">Construire une maison avec toi</label></div>
+                    <div class="option"><input type="radio" name="q3" value="wrong" id="q3c"><label for="q3c">Devenir millionnaire</label></div>
+                </div>
+                <div class="feedback" id="fb3"></div>
+            </div>
+
+            <!-- ==== QUESTION 4 ==== -->
+            <div class="question">
+                <h3>4. Quel est mon animal préféré ?</h3>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q4" value="wrong" id="q4a"><label for="q4a">Chien</label></div>
+                    <div class="option"><input type="radio" name="q4" value="correct" id="q4b"><label for="q4b">Chat</label></div>
+        
+                </div>
+                <div class="feedback" id="fb4"></div>
+            </div>
+
+            <!-- ==== QUESTION 5 ==== -->
+            <div class="question">
+                <h3>5. Quand je pense à toi, je ressens...</h3>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q5" value="wrong" id="q5a"><label for="q5a">Rien de spécial</label></div>
+                    <div class="option"><input type="radio" name="q5" value="wrong" id="q5b"><label for="q5b">De l’amitié</label></div>
+                    <div class="option"><input type="radio" name="q5" value="correct" id="q5c"><label for="q5c">Un amour infini</label></div>
+                </div>
+                <div class="feedback" id="fb5"></div>
+            </div>
+
+            <!-- BUTTON -->
+            <button type="button" id="submit-btn" onclick="checkAnswers()">Voir mon score !</button>
+        </form>
+
+        <div id="result"></div>
+    </div>
+
+    <!-- ====================== JAVASCRIPT ====================== -->
+    <script>
+       
+        const correct = { q1:'correct', q2:'correct', q3:'correct', q4:'correct', q5:'correct' };
+
+        const messages = [
+            "Tu me connais par cœur ! Je t’aime infiniment",
+            "Presque parfait ! Tu es mon âme sœur",
+            "Pas mal du tout ! On va s’aimer pour toujours",
+            "Encore un peu d’entraînement… mais je t’aime quand même",
+            "Oups ! On va faire plus de soirées câlins pour réviser"
+        ];
+
+        function checkAnswers() {
+            let score = 0;
+            const total = 5;
+
+            for (let i = 1; i <= total; i++) {
+                const sel = document.querySelector(`input[name="q${i}"]:checked`);
+                const fb  = document.getElementById(`fb${i}`);
+
+                if (!sel) {                   
+                    fb.textContent = "Tu as oublié cette question";
+                    fb.style.color = "#f57c00";
+                    continue;
+                }
+
+                if (sel.value === correct[`q${i}`]) {
+                    fb.textContent = "Correct !";
+                    fb.style.color = "#2e7d32";
+                    score++;
+                    confettiBurst();
+                } else {
+                    fb.textContent = "Faux… mais je t’aime quand même";
+                    fb.style.color = "#d32f2f";
+                }
+            }
+
+            
+            const result = document.getElementById('result');
+            const pct    = Math.round((score/total)*100);
+            const msg    = messages[Math.min(score,4)];
+
+            result.innerHTML = `
+                <h3>Résultat : ${score}/${total} (${pct}%)</h3>
+                <p><strong>${msg}</strong></p>
+                <p>Peu importe le score… tu es ma princesse pour toujours</p>
+            `;
+            result.style.display = 'block';
+            result.scrollIntoView({behavior:'smooth'});
+        }
+
+      
+        function confettiBurst() {
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const c = document.createElement('div');
+                    c.className = 'confetti';
+                    c.style.left = Math.random()*100 + 'vw';
+                    const colors = ['#ff6b9d','#ff8fab','#ffb3d1','#ffc1e3'];
+                    c.style.background = colors[Math.floor(Math.random()*colors.length)];
+                    c.style.animationDelay = Math.random()*2 + 's';
+                    document.body.appendChild(c);
+                    setTimeout(() => c.remove(), 3000);
+                }, i*50);
+            }
+        }
+    </script>
+</body>
+</html>
