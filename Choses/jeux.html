@@ -3,35 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jeu : Tu me connais ?</title>
+    <title>Nos Rêves Ensemble</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        
-        *{margin:0;padding:0;box-sizing:border-box}
-        body{min-height:100vh;background:linear-gradient(135deg,#fff0f5 0%,#ffe4f0 40%,#ffccdd 100%);font-family:'Poppins',sans-serif;color:#c2185b;display:flex;flex-direction:column;align-items:center;padding:20px;position:relative;overflow-x:hidden}
-        .heart-bg{position:absolute;font-size:1.8rem;color:rgba(255,105,180,.12);pointer-events:none;animation:float 7s infinite ease-in-out}
-        @keyframes float{0%,100%{transform:translateY(0) rotate(0deg);opacity:.3}50%{transform:translateY(-25px) rotate(12deg);opacity:.6}}
-        .container{background:rgba(255,250,253,.94);backdrop-filter:blur(15px);padding:45px 35px;border-radius:30px;width:100%;max-width:520px;text-align:center;box-shadow:0 22px 45px rgba(255,105,180,.22),0 10px 22px rgba(255,182,193,.18);border:1.8px solid rgba(255,105,180,.3);margin-top:20px;transition:all .4s;z-index:10}
-        .container:hover{transform:translateY(-8px);box-shadow:0 28px 55px rgba(255,105,180,.28),0 14px 28px rgba(255,182,193,.22)}
-        h1{font-family:'Dancing Script',cursive;font-size:3rem;color:#d63384;margin-bottom:12px;text-shadow:1px 1px 4px rgba(255,182,193,.3)}
-        .subtitle{font-size:1.2rem;color:#e91e63;margin-bottom:30px;font-weight:300;line-height:1.6}
-        .question{margin-bottom:28px;text-align:left;background:rgba(255,240,245,.7);padding:18px;border-radius:18px;border:1.5px dashed #ff99cc;transition:all .3s}
-        .question:hover{background:rgba(255,230,240,.9);border-color:#ff6b9d}
-        .question h3{color:#c2185b;margin-bottom:14px;font-size:1.25rem;font-weight:500}
-        .options{display:flex;flex-direction:column;gap:12px}
-        .option{display:flex;align-items:center;gap:12px;padding:12px 16px;background:#fff;border-radius:50px;border:2px solid #ffccdd;cursor:pointer;transition:all .3s;font-size:1rem;color:#d63384;box-shadow:0 4px 10px rgba(255,107,157,.1)}
-        .option:hover{border-color:#ff6b9d;background:#fff5f9;transform:translateX(5px)}
-        .option input[type=radio]{transform:scale(1.2);accent-color:#ff6b9d;cursor:pointer}
-        .option label{cursor:pointer;user-select:none;width:100%}
-        .feedback{margin-top:10px;font-size:1.4rem;min-height:32px;font-weight:bold}
-        #submit-btn{margin:30px auto 20px;padding:16px 36px;font-size:1.1rem;font-weight:500;color:#fff;background:linear-gradient(135deg,#ff6b9d,#ff8fab);border:none;border-radius:50px;cursor:pointer;box-shadow:0 8px 20px rgba(255,107,157,.35);transition:all .3s;display:block}
-        #submit-btn:hover{background:linear-gradient(135deg,#ff5c8a,#ff7a9d);transform:translateY(-3px) scale(1.05);box-shadow:0 12px 25px rgba(255,107,157,.45)}
-        #result{margin-top:25px;padding:20px;background:linear-gradient(135deg,#fff0f5,#ffe4f0);border-radius:20px;border:2px solid #ff99cc;font-size:1.3rem;color:#c2185b;display:none;animation:fadeIn .6s}
-        @keyframes fadeIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
-        .confetti{position:absolute;width:10px;height:10px;background:#ff6b9d;border-radius:50%;pointer-events:none;animation:fall 3s linear forwards}
-        @keyframes fall{to{transform:translateY(100vh) rotate(720deg);opacity:0}}
-        @media(max-width:480px){.container{padding:35px 25px}h1{font-size:2.5rem}.question{padding:14px}.option{font-size:.95rem;padding:10px 14px}}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #fff0f5 0%, #ffe4f0 40%, #ffccdd 100%);
+            font-family: 'Poppins', sans-serif;
+            color: #c2185b;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Floating hearts */
+        .heart {
+            position: absolute;
+            font-size: 1.6rem;
+            color: rgba(255, 105, 180, 0.15);
+            pointer-events: none;
+            animation: float 6s infinite ease-in-out;
+            user-select: none;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
+            50% { transform: translateY(-20px) rotate(15deg); opacity: 0.6; }
+        }
+
+        .container {
+            background: rgba(255, 250, 253, 0.94);
+            backdrop-filter: blur(15px);
+            padding: 50px 35px;
+            border-radius: 30px;
+            width: 100%;
+            max-width: 560px;
+            text-align: center;
+            box-shadow: 0 22px 45px rgba(255, 105, 180, 0.22),
+                        0 10px 22px rgba(255, 182, 193, 0.18);
+            border: 1.8px solid rgba(255, 105, 180, 0.3);
+            margin: 20px 0;
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 10;
+        }
+
+        .container:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 28px 55px rgba(255, 105, 180, 0.28),
+                        0 14px 28px rgba(255, 182, 193, 0.22);
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.2rem;
+            color: #d63384;
+            margin-bottom: 16px;
+            text-shadow: 1px 1px 4px rgba(255, 182, 193, 0.3);
+        }
+
+        .intro {
+            font-size: 1.2rem;
+            color: #e91e63;
+            margin-bottom: 32px;
+            font-weight: 300;
+            line-height: 1.7;
+        }
+
+        .timer {
+            background: linear-gradient(135deg, #ffb3d1, #ff8fab);
+            color: white;
+            padding: 20px;
+            border-radius: 20px;
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 20px rgba(255, 107, 157, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+
+        .projects {
+            text-align: left;
+            max-height: 50vh;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .project {
+            background: rgba(255, 240, 245, 0.8);
+            margin: 14px 0;
+            padding: 18px 22px;
+            border-radius: 22px;
+            border-left: 5px solid #ff6b9d;
+            font-size: 1.15rem;
+            color: #c2185b;
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.7s ease;
+            box-shadow: 0 4px 12px rgba(255, 107, 157, 0.15);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .project.revealed {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .project:hover {
+            background: rgba(255, 230, 240, 0.95);
+            border-left-color: #ff8fab;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 22px rgba(255, 107, 157, 0.25);
+        }
+
+        .project i {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ff6b9d;
+            font-size: 1.4rem;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .project:hover i {
+            opacity: 1;
+            transform: translateY(-50%) scale(1.4) rotate(15deg);
+        }
 
         .back-btn {
             margin-top: 30px;
@@ -50,159 +165,166 @@
             color: white;
             transform: scale(1.05);
         }
+
+        .confetti {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #ff6b9d;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: fall 2.5s linear forwards;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(120vh) rotate(720deg); opacity: 0; }
+        }
+
+        footer {
+            margin-top: 40px;
+            font-size: 0.95rem;
+            color: #d63384;
+            font-weight: 300;
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 35px 25px; }
+            h1 { font-size: 2.7rem; }
+            .project { font-size: 1.05rem; padding: 16px 20px; }
+            .timer { font-size: 1.1rem; }
+        }
     </style>
 </head>
 <body>
 
-    <!-- Floating hearts -->
-    <div class="heart-bg" style="left:12%;top:15%;animation-delay:0s;">&hearts;</div>
-    <div class="heart-bg" style="left:25%;top:70%;animation-delay:1.5s;">&hearts;</div>
-    <div class="heart-bg" style="left:70%;top:25%;animation-delay:2.8s;">&hearts;</div>
-    <div class="heart-bg" style="left:85%;top:60%;animation-delay:3.5s;">&hearts;</div>
+   
+    <div class="heart" style="left: 12%; top: 18%; animation-delay: 0s;">Heart</div>
+    <div class="heart" style="left: 28%; top: 68%; animation-delay: 1.3s;">Heart</div>
+    <div class="heart" style="left: 72%; top: 28%; animation-delay: 2.6s;">Heart</div>
+    <div class="heart" style="left: 82%; top: 72%; animation-delay: 3.9s;">Heart</div>
 
     <div class="container">
-        <h1>Tu me connais ?</h1>
-        <p class="subtitle">Un petit jeu pour voir si tu sais tout sur moi, ma Princesse <3</p>
+        <h1>Nos Rêves Ensemble</h1>
+        <p class="intro">
+            Depuis le jour où nos cœurs se sont trouvés…
+        </p>
 
-        <form id="quiz-form">
-            <!-- ==== QUESTION 1 ==== -->
-            <div class="question">
-                <h3>1. Quelle est ma couleur préférée ?</h3>
-                <div class="options">
-                    <div class="option"><input type="radio" name="q1" value="wrong" id="q1a"><label for="q1a">Bleu</label></div>
-                    <div class="option"><input type="radio" name="q1" value="correct" id="q1b"><label for="q1b">Violet</label></div>
-                    <div class="option"><input type="radio" name="q1" value="wrong" id="q1c"><label for="q1c">Vert</label></div>
-                </div>
-                <div class="feedback" id="fb1"></div>
-            </div>
-
-            <!-- ==== QUESTION 2 ==== -->
-            <div class="question">
-                <h3>2. Quel est mon plat préféré ?</h3>
-                <div class="options">
-                    <div class="option"><input type="radio" name="q2" value="correct" id="q2a"><label for="q2a">O'tacos</label></div>
-                    <div class="option"><input type="radio" name="q2" value="correct" id="q2b"><label for="q2b">Riz Cantonnais</label></div>
-                    <div class="option"><input type="radio" name="q2" value="correct" id="q2c"><label for="q2c">Burger King</label></div>
-                </div>
-                <div class="feedback" id="fb2"></div>
-            </div>
-
-            <!-- ==== QUESTION 3 ==== -->
-            <div class="question">
-                <h3>3. C</h3>
-                <div class="options">
-                    <div class="option"><input type="radio" name="q3" value="wrong" id="q3a"><label for="q3a">Voyager dans l’espace</label></div>
-                    <div class="option"><input type="radio" name="q3" value="correct" id="q3b"><label for="q3b">Construire une maison avec toi</label></div>
-                    <div class="option"><input type="radio" name="q3" value="wrong" id="q3c"><label for="q3c">Devenir millionnaire</label></div>
-                </div>
-                <div class="feedback" id="fb3"></div>
-            </div>
-
-            <!-- ==== QUESTION 4 ==== -->
-            <div class="question">
-                <h3>4. Quel est mon animal préféré ?</h3>
-                <div class="options">
-                    <div class="option"><input type="radio" name="q4" value="wrong" id="q4a"><label for="q4a">Chien</label></div>
-                    <div class="option"><input type="radio" name="q4" value="correct" id="q4b"><label for="q4b">Chat</label></div>
         
-                </div>
-                <div class="feedback" id="fb4"></div>
-            </div>
+        <div class="timer" id="timer">
+            Nous sommes ensemble depuis <br>
+            <span id="time">0 jours, 0 heures, 0 minutes, 0 secondes</span>
+        </div>
 
-            <!-- ==== QUESTION 5 ==== -->
-            <div class="question">
-                <h3>5. Qu'est-ce-que j'aime le plus chez toi?</h3>
-                <div class="options">
-                    <div class="option"><input type="radio" name="q5" value="correct" id="q5a"><label for="q5a">Ton sourire</label></div>
-                    <div class="option"><input type="radio" name="q5" value="correct" id="q5b"><label for="q5b">Tout de toi</label></div>
-                    <div class="option"><input type="radio" name="q5" value="correct" id="q5c"><label for="q5c">Tes yeux</label></div>
-                    <div class="option"><input type="radio" name="q5" value="correct" id="q5d"><label for="q5d">Ta voix</label></div>
-                    <div class="option"><input type="radio" name="q5" value="correct" id="q5c"><label for="q5e">Ta gentillesse</label></div>
-                    <div class="option"><input type="radio" name="q5" value="correct" id="q5c"><label for="q5f">Tes calins</label></div>
-                    <div class="option"><input type="radio" name="q5" value="correct" id="q5c"><label for="q5g">Ton charactere</label></div>
-                    
-                </div>
-                <div class="feedback" id="fb5"></div>
-            </div>
+        <div class="projects" id="projects-list">
+            
+        </div>
 
-            <!-- BUTTON -->
-            <button type="button" id="submit-btn" onclick="checkAnswers()">Voir mon score !</button>
-        </form>
-
-        <div id="result"></div>
+        <footer>
+            
+        </footer>
     </div>
 
     <button class="back-btn" onclick="history.back()">
             <i class="fas fa-arrow-left"></i> Retour
         </button>
 
-    <!-- ====================== JAVASCRIPT ====================== -->
     <script>
-       
-        const correct = { q1:'correct', q2:'correct', q3:'correct', q4:'correct', q5:'correct' };
+        
+        const startDate = new Date('2025-10-03T00:00:00')
 
-        const messages = [
-            "Tu me connais par cœur ! Je t’aime infiniment",
-            "Presque parfait ! Tu es mon âme sœur",
-            "Pas mal du tout ! On va s’aimer pour toujours",
-            "Encore un peu d’entraînement… mais je t’aime quand même",
-            "Oups ! On va faire plus de soirées câlins pour réviser"
+        const projects = [
+            "Se marier quand on sera grand",
+            "Faire des sorties ensemble",
+            "Habiter ensemble plus tard",
+            "Aller manger ensemble",
+            "Se voir tout les jours",
+            "Finir notre vie ensemble"
+
         ];
 
-        function checkAnswers() {
-            let score = 0;
-            const total = 5;
+        const projectsList = document.getElementById('projects-list');
+        let currentIndex = 0;
 
-            for (let i = 1; i <= total; i++) {
-                const sel = document.querySelector(`input[name="q${i}"]:checked`);
-                const fb  = document.getElementById(`fb${i}`);
+       
+        projects.forEach((project, index) => {
+            const div = document.createElement('div');
+            div.className = 'project';
+            div.innerHTML = `
+                <strong>${index + 1}.</strong> ${project}
+                <i class="fas fa-heart"></i>
+            `;
+            div.onclick = () => triggerConfetti(div);
+            projectsList.appendChild(div);
+        });
 
-                if (!sel) {                   
-                    fb.textContent = "Tu as oublié cette question";
-                    fb.style.color = "#f57c00";
-                    continue;
-                }
-
-                if (sel.value === correct[`q${i}`]) {
-                    fb.textContent = "Correct !";
-                    fb.style.color = "#2e7d32";
-                    score++;
-                    confettiBurst();
-                } else {
-                    fb.textContent = "Faux… mais je t’aime quand même";
-                    fb.style.color = "#d32f2f";
-                }
+       
+        function revealNext() {
+            if (currentIndex < projects.length) {
+                const project = projectsList.children[currentIndex];
+                project.classList.add('revealed');
+                setTimeout(revealNext, 800);
+                currentIndex++;
             }
+        }
+
+       
+        function updateTimer() {
+            const now = new Date();
+            const diff = now - startDate;
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('time').textContent = 
+                `${days} jours, ${hours} heures, ${minutes} minutes, ${seconds} secondes`;
+
+            requestAnimationFrame(updateTimer);
+        }
+
+        
+        function triggerConfetti(element) {
+            const rect = element.getBoundingClientRect();
+            const x = rect.left + rect.width / 2;
+            const y = rect.top + rect.height / 2;
+
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'confetti';
+                    heart.innerHTML = 'Heart';
+                    heart.style.left = (x + (Math.random() - 0.5) * 120) + 'px';
+                    heart.style.top = y + 'px';
+                    heart.style.background = ['#ff6b9d', '#ff8fab', '#ffb3d1'][Math.floor(Math.random() * 3)];
+                    document.body.appendChild(heart);
+                    setTimeout(() => heart.remove(), 2500);
+                }, i * 70);
+            }
+        }
+
+       
+        document.addEventListener("DOMContentLoaded", () => {
+            updateTimer();
+            setTimeout(revealNext, 1000);
 
             
-            const result = document.getElementById('result');
-            const pct    = Math.round((score/total)*100);
-            const msg    = messages[Math.min(score,4)];
-
-            result.innerHTML = `
-                <h3>Résultat : ${score}/${total} (${pct}%)</h3>
-                <p><strong>${msg}</strong></p>
-                <p>Peu importe le score… tu es ma princesse pour toujours</p>
-            `;
-            result.style.display = 'block';
-            result.scrollIntoView({behavior:'smooth'});
-        }
-
-      
-        function confettiBurst() {
-            for (let i = 0; i < 30; i++) {
+            const colors = ['#ff6b9d', '#ff8fab', '#ffb3d1', '#ffc1e3'];
+            for (let i = 0; i < 7; i++) {
                 setTimeout(() => {
-                    const c = document.createElement('div');
-                    c.className = 'confetti';
-                    c.style.left = Math.random()*100 + 'vw';
-                    const colors = ['#ff6b9d','#ff8fab','#ffb3d1','#ffc1e3'];
-                    c.style.background = colors[Math.floor(Math.random()*colors.length)];
-                    c.style.animationDelay = Math.random()*2 + 's';
-                    document.body.appendChild(c);
-                    setTimeout(() => c.remove(), 3000);
-                }, i*50);
+                    const heart = document.createElement('div');
+                    heart.className = 'heart';
+                    heart.innerHTML = 'Heart';
+                    heart.style.left = Math.random() * 100 + '%';
+                    heart.style.top = Math.random() * 100 + '%';
+                    heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+                    heart.style.fontSize = (1.3 + Math.random() * 0.9) + 'rem';
+                    heart.style.animationDelay = Math.random() * 5 + 's';
+                    document.body.appendChild(heart);
+                }, i * 750);
             }
-        }
+        });
     </script>
+
 </body>
 </html>
