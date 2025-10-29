@@ -119,17 +119,17 @@
                 <h3>2. Quel est mon plat préféré ? (Plusieurs possibles)</h3>
                 <div class="options">
                     <div class="option" onclick="toggleInput(this)">
-                        <input type="checkbox" name="q2" value="correct" id="q2a">
+                        <input type="radio" name="q2" value="correct" id="q2a">
                         <div class="custom-box"></div>
                         <label for="q2a">O'tacos</label>
                     </div>
                     <div class="option" onclick="toggleInput(this)">
-                        <input type="checkbox" name="q2" value="correct" id="q2b">
+                        <input type="radio" name="q2" value="correct" id="q2b">
                         <div class="custom-box"></div>
                         <label for="q2b">Riz Cantonnais</label>
                     </div>
                     <div class="option" onclick="toggleInput(this)">
-                        <input type="checkbox" name="q2" value="correct" id="q2c">
+                        <input type="radio" name="q2" value="correct" id="q2c">
                         <div class="custom-box"></div>
                         <label for="q2c">Burger King</label>
                     </div>
@@ -246,7 +246,7 @@
         // Réponses correctes
         const correctAnswers = {
             q1: "correct",                                    // Radio
-            q2: ["correct", "correct", "correct"],            // 3 bonnes
+            q2: "correct",            // 3 bonnes
             q3: ["correct", "correct", "correct", "correct"], // 4 bonnes
             q4: "correct",                                    // Radio
             q5: ["correct","correct","correct","correct","correct","correct","correct"] // 7 bonnes
